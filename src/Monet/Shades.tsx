@@ -4,7 +4,7 @@
  * Original Java code source: [https://android.googlesource.com/platform/frameworks/base/+/6844741fb8351f3aa82b96ce64a1bd83ea7989bd/packages/SystemUI/monet/src/com/android/systemui/monet?autodive=0%2F]
  *
  * Copyright (C) 2021 The Android Open Source Project.
- * The original code is licensed under the Apache License, Version 2.0 (the "License").
+ * The original code is licensed under the Apache License, Version 2.0.
  *
  * This JavaScript version is licensed under the MIT License.
  *

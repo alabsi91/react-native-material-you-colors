@@ -1,40 +1,38 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FlatList, StatusBar, StyleSheet, Text, View } from 'react-native';
 import MaterialYouColors from 'react-native-material-you-colors';
 
+import type { MaterialYouPalette } from 'react-native-material-you-colors';
+
+const accents: (keyof MaterialYouPalette)[] = [
+  'system_accent1',
+  'system_accent2',
+  'system_accent3',
+  'system_neutral1',
+  'system_neutral2',
+];
 const shades = [0, 10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
 
 export default function App() {
-  // const palette = MaterialYouColors.getMaterialYouPalette('#009dff');
-  const palette = MaterialYouColors.generatePaletteFromColor('#ff00ff', 'VIBRANT');
+  const palette = MaterialYouColors.getMaterialYouPalette('#009dff');
+  // const palette = MaterialYouColors.generatePaletteFromColor('#009dff', 'VIBRANT');
 
-  const listData = [
-    ...palette.system_accent1.map((e, i) => ({
-      name: `system_accent1_${shades[i]}`,
-      color: e,
-      shade: shades[i] as number,
-    })),
-    ...palette.system_accent2.map((e, i) => ({
-      name: `system_accent2_${shades[i]}`,
-      color: e,
-      shade: shades[i] as number,
-    })),
-    ...palette.system_accent3.map((e, i) => ({
-      name: `system_accent3_${shades[i]}`,
-      color: e,
-      shade: shades[i] as number,
-    })),
-    ...palette.system_neutral1.map((e, i) => ({
-      name: `system_neutral1_${shades[i]}`,
-      color: e,
-      shade: shades[i] as number,
-    })),
-    ...palette.system_neutral2.map((e, i) => ({
-      name: `system_neutral2_${shades[i]}`,
-      color: e,
-      shade: shades[i] as number,
-    })),
-  ];
+  // generate flatList data
+  const listData = useMemo(() => {
+    const data = [];
+
+    for (let a = 0; a < accents.length; a++) {
+      const accent = accents[a]!; // 'system_accent1', 'system_accent2', 'system_accent3', 'system_neutral1', 'system_neutral2'
+
+      for (let i = 0; i < shades.length; i++) {
+        const shade = shades[i]!; // 0, 10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000
+        const color = palette[accent][i]!;
+        data.push({ name: `${accent}_${shade}`, color, shade });
+      }
+    }
+
+    return data;
+  }, [palette]);
 
   const renderList = ({ item }: { item: { name: string; color: string; shade: number } }) => {
     return (
@@ -58,8 +56,9 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: 'gray',
-    borderWidth: 0.2,
+    // borderColor: 'gray',
+    // borderTopWidth: 2,
+    // borderBottomWidth: 2,
   },
   shadeTitle: {
     fontWeight: 'bold',

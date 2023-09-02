@@ -1,5 +1,5 @@
 import { NativeModules, Platform } from 'react-native';
-import Palette from './Mont/Palette';
+import Palette from './Monet/Palette';
 
 import type { MaterialYouPalette, Styles } from './Types';
 

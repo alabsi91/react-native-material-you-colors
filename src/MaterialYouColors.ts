@@ -1,10 +1,9 @@
-import { Platform } from 'react-native';
-import Palette from './Mont/Palette';
+import Palette from './Monet/Palette';
 
 import type { MaterialYouPalette, Styles } from './Types';
 
 export default class MaterialYou {
-  static isMaterialYouSupported: boolean = Platform.OS === 'android' && Platform.Version >= 31;
+  static isMaterialYouSupported = false;
 
   /**
    * Generate a complete Material You palette from a single HEX color (seed color).

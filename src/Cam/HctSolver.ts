@@ -4,7 +4,7 @@
  * Original Java code source: [https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/core/java/com/android/internal/graphics/cam]
  *
  * Copyright (C) 2021 The Android Open Source Project.
- * The original code is licensed under the Apache License, Version 2.0 (the "License").
+ * The original code is licensed under the Apache License, Version 2.0.
  *
  * This JavaScript version is licensed under the MIT License.
  *
