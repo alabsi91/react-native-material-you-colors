@@ -29,16 +29,16 @@ public class MaterialYouColorsPackage extends TurboReactPackage {
       final Map<String, ReactModuleInfo> moduleInfos = new HashMap<>();
       boolean isTurboModule = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
       moduleInfos.put(
-              MaterialYouColorsModule.NAME,
-              new ReactModuleInfo(
-                      MaterialYouColorsModule.NAME,
-                      MaterialYouColorsModule.NAME,
-                      false, // canOverrideExistingModule
-                      false, // needsEagerInit
-                      true, // hasConstants
-                      false, // isCxxModule
-                      isTurboModule // isTurboModule
-      ));
+        MaterialYouColorsModule.NAME,
+        new ReactModuleInfo(
+          MaterialYouColorsModule.NAME,
+          MaterialYouColorsModule.NAME,
+          false, // canOverrideExistingModule
+          false, // needsEagerInit
+          true, // hasConstants
+          false, // isCxxModule
+          isTurboModule // isTurboModule
+        ));
       return moduleInfos;
     };
   }
