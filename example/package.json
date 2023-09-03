@@ -1,5 +1,5 @@
 {
-  "name": "MaterialYouColorsExample",
+  "name": "materia-you-colors-example",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "react": "18.2.0",
-    "react-native": "0.72.4"
+    "react-native": "0.72.4",
+    "react-native-gesture-handler": "^2.12.1",
+    "react-native-reanimated": "^3.4.2",
+    "reanimated-color-picker": "^2.3.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -21,6 +24,11 @@
     "metro-react-native-babel-preset": "0.76.8",
     "babel-plugin-module-resolver": "^5.0.0"
   },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
   "engines": {
     "node": ">=16"
   }

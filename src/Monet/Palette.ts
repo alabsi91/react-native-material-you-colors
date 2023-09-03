@@ -15,7 +15,7 @@ import { Cam } from '../Cam/Cam';
 import Color from '../Utils/Color';
 import Shades from './Shades';
 
-import type { Styles } from 'src/Types';
+import type { MaterialYouPalette, Styles } from '../Types';
 
 type StyleType = Record<Styles, Record<'a1' | 'a2' | 'a3' | 'n1' | 'n2', [number, number]>>;
 
@@ -192,7 +192,7 @@ export default class Palette {
     }
   }
 
-  static generate(seed: string, style: Styles = 'TONAL_SPOT') {
+  static generate(seed: string, style: Styles = 'TONAL_SPOT'): MaterialYouPalette {
     // Parse the HEX seed color string into an integer
     seed = seed.toUpperCase().substring(1, 7);
     const colorInt = parseInt('0xff' + seed, 16);
@@ -228,6 +228,6 @@ export default class Palette {
       system_neutral2: neutral2.map(numberToHexColor),
     };
 
-    return results;
+    return results as MaterialYouPalette;
   }
 }

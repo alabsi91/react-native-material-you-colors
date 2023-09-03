@@ -69,6 +69,15 @@ def enableProguardInReleaseBuilds = false
 def jscFlavor = 'org.webkit:android-jsc:+'
 
 android {
+  splits {
+    abi {
+      reset()
+      enable true
+      universalApk true
+      include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+    }
+  }
+
   ndkVersion rootProject.ext.ndkVersion
 
   compileSdkVersion rootProject.ext.compileSdkVersion
