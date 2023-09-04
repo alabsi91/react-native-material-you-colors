@@ -15,9 +15,9 @@ import { Cam } from '../Cam/Cam';
 import Color from '../Utils/Color';
 import Shades from './Shades';
 
-import type { MaterialYouPalette, Styles } from '../Types';
+import type { MaterialYouPalette, GenerationStyle } from '../Types';
 
-type StyleType = Record<Styles, Record<'a1' | 'a2' | 'a3' | 'n1' | 'n2', [number, number]>>;
+type StyleType = Record<GenerationStyle, Record<'a1' | 'a2' | 'a3' | 'n1' | 'n2', [number, number]>>;
 
 export default class Palette {
   static ACCENT1_CHROMA = 48;
@@ -192,7 +192,7 @@ export default class Palette {
     }
   }
 
-  static generate(seed: string, style: Styles = 'TONAL_SPOT'): MaterialYouPalette {
+  static generate(seed: string, style: GenerationStyle = 'TONAL_SPOT'): MaterialYouPalette {
     // Parse the HEX seed color string into an integer
     seed = seed.toUpperCase().substring(1, 7);
     const colorInt = parseInt('0xff' + seed, 16);

@@ -1,4 +1,5 @@
 type ShadesArr = [string, string, string, string, string, string, string, string, string, string, string, string, string];
+
 export type MaterialYouPalette = {
   /** An array with `13` shades. */
   system_accent1: ShadesArr;
@@ -12,4 +13,55 @@ export type MaterialYouPalette = {
   system_neutral2: ShadesArr;
 };
 
-export type Styles = 'SPRITZ' | 'TONAL_SPOT' | 'VIBRANT' | 'EXPRESSIVE' | 'RAINBOW' | 'FRUIT_SALAD' | 'CONTENT' | 'MONOCHROMATIC';
+export type GenerationStyle =
+  | 'SPRITZ'
+  | 'TONAL_SPOT'
+  | 'VIBRANT'
+  | 'EXPRESSIVE'
+  | 'RAINBOW'
+  | 'FRUIT_SALAD'
+  | 'CONTENT'
+  | 'MONOCHROMATIC';
+
+export type ColorScheme = 'light' | 'dark' | 'auto';
+
+export type MapPaletteToThemeType = (palette: MaterialYouPalette) => {
+  light: Record<string, unknown>;
+  dark: Record<string, unknown>;
+};
+
+export type ThemeProviderProps = {
+  colorScheme?: ColorScheme;
+  fallbackColor?: string;
+  seedColor?: 'auto' | (string & NonNullable<unknown>);
+  generationStyle?: GenerationStyle;
+  children?: React.ReactNode;
+};
+
+export type MaterialYouThemeContext = {
+  /** Switch between themes (`dark` or `light`) or set to `auto` to follow system color scheme preference.*/
+  setColorScheme: (value: ColorScheme) => void;
+  /**
+   * Generate a new Material You palette and set it as the current theme.
+   * @param {string} seed
+   * - The seed color. It can be `"auto"` to follow the system theme if supported;
+   * otherwise, it will generate a palette using the `fallbackColor` prop.
+   * If a HEX color is provided, it will generate a new palette using that seed color.
+   * @param {string} style - The style that dictates how the palette will be generated.
+   */
+  setMaterialYouColor: (seed: 'auto' | (string & NonNullable<unknown>), style?: GenerationStyle) => void;
+  /**
+   * Change the palette generation style and set it as the current theme.
+   *
+   * **Disclaimer**: If the current Material You palette is set to `"auto"` (following the system theme), a new palette will be generated using the `fallbackColor` prop.
+   * @param {string} style - The style that dictates how the palette will be generated.
+   */
+  setPaletteStyle: (style: GenerationStyle) => void;
+  /**
+   * The current seed color used to generate the palette.
+   * If the palette follows the system theme, it will be `"auto"`.
+   */
+  seedColor: 'auto' | (string & NonNullable<unknown>);
+  /** The current generation style used to generate the palette */
+  style: GenerationStyle;
+};

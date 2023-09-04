@@ -28,7 +28,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "prepublishOnly": "bob build",
-    "build:android": "cd example/android && .\\gradlew assembleDebug",
+    "build:android": "cd example/android && .\\gradlew assembleRelease",
     "clean": "del-cli android/build example/android/build example/android/app/build"
   },
   "keywords": [
