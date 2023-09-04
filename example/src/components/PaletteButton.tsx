@@ -1,13 +1,13 @@
-import { View, Pressable, StyleSheet } from 'react-native';
 import React from 'react';
-import { useTheme } from '../styles/Theme';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { useMaterialYouTheme } from '../styles/Theme';
 
 type Props = {
   colors: [string, string];
   targetColor: string;
 };
 export default function PaletteButton({ colors, targetColor }: Props) {
-  const theme = useTheme();
+  const theme = useMaterialYouTheme();
 
   const onPress = () => {
     theme.setMaterialYouColor(targetColor);

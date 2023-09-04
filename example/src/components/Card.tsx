@@ -1,10 +1,10 @@
 import React from 'react';
 import { Image, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { useTheme } from '../styles/Theme';
+import { useMaterialYouTheme } from '../styles/Theme';
 
 export default function Card() {
-  const theme = useTheme();
+  const theme = useMaterialYouTheme();
 
   const onButtonPress = () => {
     Linking.openURL('https://m3.material.io/');
@@ -20,7 +20,7 @@ export default function Card() {
         resizeMode='cover'
       />
 
-      <View style={{ flex: 1, height: 200, justifyContent: 'center' }}>
+      <View style={{ height: 200, justifyContent: 'center' }}>
         <Text style={styles.title}>Material Design</Text>
       </View>
 

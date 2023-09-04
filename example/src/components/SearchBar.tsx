@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
 import React from 'react';
-import { useTheme } from '../styles/Theme';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { useMaterialYouTheme } from '../styles/Theme';
 
 export default function SearchBar() {
-  const theme = useTheme();
+  const theme = useMaterialYouTheme();
 
   return (
     <View style={[styles.container, { backgroundColor: theme.card }]}>

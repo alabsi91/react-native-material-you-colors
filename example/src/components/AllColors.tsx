@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet, Pressable, Modal, FlatList } from 'react-native';
 import React, { useMemo, useState } from 'react';
+import { FlatList, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { useTheme } from '../styles/Theme';
 import MaterialYou from 'react-native-material-you-colors';
 
 import type { MaterialYouPalette } from 'react-native-material-you-colors';
+import { useMaterialYouTheme } from '../styles/Theme';
 
 const accents: (keyof MaterialYouPalette)[] = [
   'system_accent1',
@@ -16,14 +16,15 @@ const accents: (keyof MaterialYouPalette)[] = [
 const shades = [0, 10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
 
 export default function AllColors() {
-  const theme = useTheme();
+  const theme = useMaterialYouTheme();
 
   const [visible, setVisible] = useState(false);
 
   const DATA = useMemo(() => {
-    const palette = theme.seed
-      ? MaterialYou.generatePaletteFromColor(theme.seed, theme.style)
-      : MaterialYou.getMaterialYouPalette('#1b6ef3', theme.style);
+    const palette =
+      theme.seedColor === 'auto'
+        ? MaterialYou.getMaterialYouPalette('#1b6ef3', theme.style)
+        : MaterialYou.generatePaletteFromColor(theme.seedColor, theme.style);
 
     const listData = [];
 
@@ -38,7 +39,7 @@ export default function AllColors() {
     }
 
     return listData;
-  }, [theme]);
+  }, [visible]);
 
   const renderList = ({ item }: { item: { name: string; color: string; shade: number } }) => {
     return (
@@ -55,8 +56,18 @@ export default function AllColors() {
         <Text style={{ color: theme.textColored, fontSize: 20, fontWeight: 'bold', textAlign: 'center' }}>Browse colors</Text>
       </Pressable>
 
-      <Modal onRequestClose={() => setVisible(false)} visible={visible} animationType='slide' transparent>
-        <FlatList data={DATA} renderItem={renderList} keyExtractor={(item, i) => item.name + i} />
+      <Modal onRequestClose={() => setVisible(false)} visible={visible} animationType='slide'>
+        <View style={{ flex: 1, backgroundColor: theme.background }}>
+          <FlatList
+            style={{ width: '100%', maxWidth: 500, alignSelf: 'center' }}
+            data={DATA}
+            renderItem={renderList}
+            keyExtractor={(item, i) => item.name + i}
+          />
+          <Pressable style={[styles.closeButton, { backgroundColor: theme.primary }]} onPress={() => setVisible(false)}>
+            <Text style={{ color: theme.textColored, fontSize: 18, fontWeight: 'bold', textAlign: 'center' }}>Close</Text>
+          </Pressable>
+        </View>
       </Modal>
     </>
   );
@@ -70,6 +81,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     paddingVertical: 26,
     marginBottom: 60,
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
+  },
+  closeButton: {
+    position: 'absolute',
+    bottom: 30,
+    alignSelf: 'center',
+    width: 300,
+    borderRadius: 300,
+    paddingHorizontal: 30,
+    paddingVertical: 14,
 
     shadowColor: '#000',
     shadowOffset: {

@@ -5,10 +5,8 @@ import { ThemeProvider } from './styles/Theme';
 
 export default function App() {
   return (
-    <>
-      <ThemeProvider defaultTheme='auto'>
-        <Home />
-      </ThemeProvider>
-    </>
+    <ThemeProvider seedColor='auto' fallbackColor='#1b6ef3' generationStyle='TONAL_SPOT'>
+      <Home />
+    </ThemeProvider>
   );
 }
