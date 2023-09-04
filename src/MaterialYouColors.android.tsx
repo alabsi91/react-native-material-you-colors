@@ -144,7 +144,8 @@ export default class MaterialYou {
             : MaterialYou.generatePaletteFromColor(seed, style);
 
         themeSettings.seedColor = seed;
-        themeSettings.generationStyle = style;
+        // If the seed is set to "auto", use the Android system's default 'TONAL_SPOT' style.
+        themeSettings.generationStyle = seed === 'auto' ? 'TONAL_SPOT' : style;
 
         const newTheme = mapPaletteToTheme(generatedPalette);
         theme.light = newTheme.light;
@@ -159,9 +160,14 @@ export default class MaterialYou {
       };
 
       const setPaletteStyle = (style: GenerationStyle) => {
-        const generatedPalette = MaterialYou.generatePaletteFromColor(themeSettings.seedColor ?? fallbackColor, style);
+        const generatedPalette = MaterialYou.generatePaletteFromColor(
+          themeSettings.seedColor === 'auto' ? (seedColor !== 'auto' ? seedColor : fallbackColor) : themeSettings.seedColor,
+          style
+        );
 
         themeSettings.generationStyle = style;
+        // After changing the generation style, the palette is generated and no longer derived from the system.
+        if (themeSettings.seedColor === 'auto') themeSettings.seedColor = seedColor !== 'auto' ? seedColor : fallbackColor;
 
         const newTheme = mapPaletteToTheme(generatedPalette);
         theme.light = newTheme.light;
