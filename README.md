@@ -255,7 +255,7 @@ export default function MyComponent() {
 
 Explore how to use React Native Material You Colors with these practical examples:
 
-1. [Example: React Native App](link-to-example-1)
+1. [Example: React Native App]([link-to-example-1](https://github.com/alabsi91/react-native-material-you-colors/tree/main/example))
 
 </br>
 
