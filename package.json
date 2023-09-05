@@ -1,6 +1,6 @@
 {
   "name": "react-native-material-you-colors",
-  "version": "0.1.0-beta.0",
+  "version": "0.1.0-beta.2",
   "description": "Get and generate Material You colors",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
