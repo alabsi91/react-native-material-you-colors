@@ -9,6 +9,8 @@
 
 React Native Material You Colors is a powerful library that simplifies the retrieval of Material You color palettes while ensuring compatibility across multiple platforms. With just a single seed color, you can generate palettes inspired by Material You's dynamic theming.
 
+> Please check out my other library, [`Reanimated Color Picker`](https://github.com/alabsi91/reanimated-color-picker)
+
 # Key Features
 
 ### Multi-Platform Support
@@ -17,7 +19,7 @@ This library seamlessly extends its support beyond `Android` to include `IOS` an
 
 ### Algorithm Conversion
 
-We've diligently converted Android's Material You color generation algorithm from Java to JavaScript, ensuring its accessibility across all platforms. This conversion guarantees that you can harness the same robust color palette generation capabilities regardless of your target platform.
+We've diligently converted Android's Material You color generation algorithm from Java to JavaScript, ensuring its accessibility across all platforms. This conversion guarantees that you can harness the same robust color palette generation capabilities, regardless of your target platform.
 
 ### Theme Management
 
@@ -53,23 +55,37 @@ const palette = MaterialYou.getMaterialYouPalette();
  */
 ```
 
-- #### `MaterialYou.isSupported : boolean`
+### Methods
 
-  To verify current platform/device support for Material You dynamic colors.
+- #### isSupported
 
-- #### `MaterialYou.getMaterialYouPalette(fallbackSeedColor?: string, style?: GenerationStyle): MaterialYouPalette`
+  ```ts
+  MaterialYou.isSupported : boolean
+  ```
+
+  To verify the current platform/device support for Material You dynamic colors.
+
+- #### getMaterialYouPalette
+
+  ```ts
+  MaterialYou.getMaterialYouPalette(fallbackSeedColor?: string, style?: GenerationStyle): MaterialYouPalette
+  ```
 
   Get the Material You color palette from the Android system on the device.
 
   If Material You is not supported on the user's device, a color palette generated from a fallback seed color will be returned.
 
-- #### `MaterialYou.generatePaletteFromColor: (colorSeed: string, style?: GenerationStyle) => MaterialYouPalette = Palette.generate;`
+- #### generatePaletteFromColor
+
+  ```ts
+  MaterialYou.generatePaletteFromColor(colorSeed: string, style?: GenerationStyle): MaterialYouPalette
+  ```
 
   Generate a complete Material You palette from a single HEX color (seed color).
 
   Various styles are available to choose from, each of which dictates how the palette will be generated.
 
-  **Note:** The input seed color should be in HEX format, #RRGGBB, without the alpha channel, for example, `#1b6ef3`.
+  **Note:** The input seed color should be in HEX format (#RRGGBB), without the alpha channel. For example, `#1b6ef3`.
 
 - #### The shape of the output palette data
 
@@ -87,7 +103,7 @@ const palette = MaterialYou.getMaterialYouPalette();
 
 We recommend using the Theme Provider for a straightforward and hassle-free way to manage your app's theme. This approach ensures a consistent and visually appealing experience for your users. To get started, follow these steps:
 
-1. Create a new theme context and provide a function to determine which colors you want to use:
+1. Create a new theme context and provide a function to determine which colors you want to use.
 
    > **Warning**
    > The function should return an object with the keys `light` and `dark`, where both keys contain objects with the same set of keys representing the colors you want to use for the light and dark themes.
@@ -123,14 +139,18 @@ function generateTheme(palette: MaterialYouPalette) {
 export const { ThemeProvider, useMaterialYouTheme } = MaterialYou.createThemeContext(generateTheme);
 ```
 
+</br>
+
 2. Wrap your app with the Theme Provider, providing the initial props:
+
+</br>
 
 ```ts
 // App.tsx
 
 import React from 'react';
-
 import Home from './screens/Home';
+
 import { ThemeProvider } from './Theme'; // 👈
 
 export default function App() {
@@ -144,42 +164,52 @@ export default function App() {
 
 ### `ThemeProvider` props:
 
-| Prop              | Type                                                                                                           | Description                                                                                                                                                                                            |
-| ----------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `colorScheme`     | `"auto" \| "dark" \| "light"`                                                                                  | Specifies the initial color scheme for your app.                                                                                                                                                       |
-| `fallbackColor`   | `string` (HEX Color)                                                                                           | This is used to generate a fallback palette in case the platform does not support Material You colors.                                                                                                 |
-| `generationStyle` | `"SPRITZ"\| "TONAL_SPOT"\| "VIBRANT"\| "EXPRESSIVE"\| "RAINBOW"\| "FRUIT_SALAD"\| "CONTENT"\| "MONOCHROMATIC"` | palette generation style.                                                                                                                                                                              |
-| `seedColor`       | `"auto" \| string` (HEX Color)                                                                                 | If set to `"auto"`, it tries to get the palette from the device, falling back to the provided color if unsupported. If set to a color (HEX only), it generates a new palette without device retrieval. |
-| ...               | ...                                                                                                            | ...                                                                                                                                                                                                    |
+| Prop              | Type                                                                                                           | Description                                                                                                                                                                                            | Default        |
+| ----------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `colorScheme`     | `"auto" \| "dark" \| "light"`                                                                                  | Specifies the initial color scheme for your app.                                                                                                                                                       | `"auto"`       |
+| `fallbackColor`   | `string` (HEX Color)                                                                                           | This is used to generate a fallback palette in case the platform does not support Material You colors.                                                                                                 | `'#1b6ef3'`    |
+| `generationStyle` | `"SPRITZ"\| "TONAL_SPOT"\| "VIBRANT"\| "EXPRESSIVE"\| "RAINBOW"\| "FRUIT_SALAD"\| "CONTENT"\| "MONOCHROMATIC"` | Palette generation style.                                                                                                                                                                              | `"TONAL_SPOT"` |
+| `seedColor`       | `"auto" \| string` (HEX Color)                                                                                 | If set to `"auto"`, it tries to get the palette from the device, falling back to the provided color if unsupported. If set to a color (HEX only), it generates a new palette without device retrieval. | `"auto"`       |
+
+</br>
 
 3. Use the `useMaterialYouTheme` hook to access the current theme in your components:
+
+</br>
 
 ```jsx
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
+
 import { useMaterialYouTheme } from './Theme'; // 👈
 
 export default function MyComponent() {
   const theme = useMaterialYouTheme();
 
-  return <View style={[styles.container, { backgroundColor: theme.background }]}>// ...</View>;
+  return <View style={[styles.container, { backgroundColor: theme.background }]}>
+
+  // ...
 }
 ```
 
 </br>
 
-`useMaterialYouTheme` provide other utilities you can use throw your app:
+### `useMaterialYouTheme` provide other utilities you can use throw your app:
 
-- ### Changing Color Scheme
+- #### Changing Color Scheme
 
-  #### `setColorScheme: (value: "auto" | "dark" | "light") => void`
+  ```ts
+  setColorScheme: (value: "auto" | "dark" | "light") => void
+  ```
 
   **Description**</br>
-  Switch between themes (`dark` or `light`) or set to `auto` to follow system color scheme preference.
+  Switch between themes (`dark` or `light`) or set it to `auto` to follow system color scheme preference.
 
-- ### Generate new palette
+- #### Generate new palette
 
-  #### `setMaterialYouColor: (seedColor: "auto" | string), style?: GenerationStyle) => void`
+  ```ts
+  setMaterialYouColor: (seedColor: "auto" | string), style?: GenerationStyle) => void
+  ```
 
   **Description**</br>
   Generate a new Material You palette and set it as the current theme.</br>
@@ -188,26 +218,45 @@ export default function MyComponent() {
   If a HEX color is provided, it will generate a new palette using that seed color.</br>
   `style:` - The style that dictates how the palette will be generated.
 
-- ### Change palette generation style
+- #### Change palette generation style
 
-  #### `setPaletteStyle: (style: GenerationStyle) => void;`
+  ```ts
+  setPaletteStyle: (style: generationStyle) => void;
+
+  type generationStyle = "SPRITZ" | "TONAL_SPOT" | "VIBRANT" | "EXPRESSIVE" | "RAINBOW" | "FRUIT_SALAD" | "CONTENT" | "MONOCHROMATIC"
+  ```
 
   **Description**</br>
   Change the palette generation style and set it as the current theme.</br>
   **Disclaimer**: If the current Material You palette is set to `"auto"` (following the system theme), a new palette will be generated using the `fallbackColor` prop.</br>
 
-- ### Others
+- ### Other
 
-  `seedColor: 'auto' | string`
+  ```ts
+  seedColor: 'auto' | string;
+  ```
 
   **Description**</br>
   Returns the current seed color used to generate the palette.  
    If the palette follows the system theme, it will be `"auto"`.</br>
 
-  `style: GenerationStyle`
+  ```ts
+  style: GenerationStyle;
+  ```
 
   **Description**</br>
   Returns the current generation style used to generate the palette.
+
+## Examples
+
+Explore how to use React Native Material You Colors with these practical examples:
+
+1. [Example: React Native App](link-to-example-1)
+
+</br>
+
+2. [Example: Expo Snack](https://snack.expo.dev/@alabsi91/react-native-material-you-colors)
+   > **Warning** Please be aware that retrieving the Material You color palette from Android system only functions in the production build.
 
 ## License
 
