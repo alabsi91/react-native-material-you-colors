@@ -7,7 +7,7 @@ export default function Card() {
   const theme = useMaterialYouTheme();
 
   const onButtonPress = () => {
-    Linking.openURL('https://m3.material.io/');
+    Linking.openURL('https://m3.material.io/styles/color/dynamic-color/overview');
   };
 
   return (

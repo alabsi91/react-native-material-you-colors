@@ -60,9 +60,11 @@ export default function AllColors() {
         <View style={{ flex: 1, backgroundColor: theme.background }}>
           <FlatList
             style={{ width: '100%', maxWidth: 500, alignSelf: 'center' }}
+            ListFooterComponentStyle={{ paddingBottom: 100 }}
             data={DATA}
             renderItem={renderList}
             keyExtractor={(item, i) => item.name + i}
+            ListFooterComponent={<View />}
           />
           <Pressable style={[styles.closeButton, { backgroundColor: theme.primary }]} onPress={() => setVisible(false)}>
             <Text style={{ color: theme.textColored, fontSize: 18, fontWeight: 'bold', textAlign: 'center' }}>Close</Text>
