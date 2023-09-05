@@ -40,7 +40,7 @@ npm install react-native-material-you-colors
 
 # Usage
 
-### Without using the Theme Provider
+## Without using the Theme Provider
 
 ```ts
 import MaterialYou from 'react-native-material-you-colors';
@@ -103,7 +103,7 @@ const palette = MaterialYou.getMaterialYouPalette();
   };
   ```
 
-### Using the Theme Provider
+## Using the Theme Provider
 
 We recommend using the Theme Provider for a straightforward and hassle-free way to manage your app's theme. This approach ensures a consistent and visually appealing experience for your users. To get started, follow these steps:
 
