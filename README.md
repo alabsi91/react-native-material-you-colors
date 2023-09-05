@@ -29,7 +29,7 @@ We've diligently converted Android's Material You color generation algorithm fro
 
 React Native Material You Colors offers a comprehensive theme management solution to maintain a cohesive and user-friendly experience across your application.
 
-## Installation
+# Installation
 
 ```sh
 npm install react-native-material-you-colors
