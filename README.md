@@ -38,7 +38,7 @@ npm install react-native-material-you-colors
 > **Warning**
 > For `Expo` users, please note that the native side of this library will not function in `Expo Go` during app development. The native side is solely used to retrieve Material You colors from the `Android` system, but you can still generate palettes. The native side will work as expected after building the app in production mode.
 
-## Usage
+# Usage
 
 ### Without using the Theme Provider
 
@@ -251,7 +251,7 @@ export default function MyComponent() {
   **Description**</br>
   Returns the current generation style used to generate the palette.
 
-## Examples
+# Examples
 
 Explore how to use React Native Material You Colors with these practical examples:
 
@@ -262,7 +262,7 @@ Explore how to use React Native Material You Colors with these practical example
 2. [Example: Expo Snack](https://snack.expo.dev/@alabsi91/react-native-material-you-colors)
    > **Warning** Please be aware that retrieving the Material You color palette from Android system on `Expo` only functions in the production build.
 
-## License
+# License
 
 React Native Material You Colors library is licensed under [**The MIT License.**](https://github.com/alabsi91/react-native-material-you-colors/blob/main/LICENSE)
 
