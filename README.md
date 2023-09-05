@@ -5,6 +5,10 @@
 
 ![banner](https://lh3.googleusercontent.com/552oGSlinN0Gd7T8EjNkYGCBzHt0UmoG_pWtHSUY6FwaGT4q4-zJlGHD9rWO7MT5Oe_rtQZmyVnGRxVXch7Q1CTSQMs_1TcwbIMX9xZYDjEK2_R7PA=w1400-v0)
 
+
+https://github.com/alabsi91/react-native-material-you-colors/assets/58077449/5d70f2a6-ae2a-42c3-be02-0446e9f69f42
+
+
 # React Native Material You Colors
 
 React Native Material You Colors is a powerful library that simplifies the retrieval of Material You color palettes while ensuring compatibility across multiple platforms. With just a single seed color, you can generate palettes inspired by Material You's dynamic theming.
