@@ -32,12 +32,14 @@
     "clean": "del-cli android/build example/android/build example/android/app/build"
   },
   "keywords": [
+    "web",
     "react-native",
     "palette",
-    "colors",
     "material you",
     "material design",
+    "ios",
     "dynamic color",
+    "colors",
     "android"
   ],
   "repository": "https://github.com/alabsi91/react-native-material-you-colors",
