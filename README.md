@@ -266,6 +266,16 @@ Explore how to use React Native Material You Colors with these practical example
 
 React Native Material You Colors library is licensed under [**The MIT License.**](https://github.com/alabsi91/react-native-material-you-colors/blob/main/LICENSE)
 
+# Sponsoring
+
+<a href="https://github.com/sponsors/alabsi91">
+  <img align="right" width="160" alt="This library helped you? Consider sponsoring!" src=".github/funding-octocat.svg">
+</a>
+
+If you're integrating React Native Material You Colors in a production app and have found value in this library, consider [funding this project](https://github.com/sponsors/alabsi91). Your support helps maintain and improve the library for the community.
+
+Feel free to [contact me](mailto:alabsi91@gmail.com) if you have any questions or would like to discuss further sponsorship options. Your support is greatly appreciated!
+
 ---
 
 Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
