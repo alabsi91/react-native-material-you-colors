@@ -260,7 +260,7 @@ Explore how to use React Native Material You Colors with these practical example
 </br>
 
 2. [Example: Expo Snack](https://snack.expo.dev/@alabsi91/react-native-material-you-colors)
-   > **Warning** Please be aware that retrieving the Material You color palette from Android system only functions in the production build.
+   > **Warning** Please be aware that retrieving the Material You color palette from Android system on `Expo` only functions in the production build.
 
 ## License
 
