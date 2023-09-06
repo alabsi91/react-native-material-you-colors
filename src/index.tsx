@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, useRef, useState } from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Appearance } from 'react-native';
 import type {
   ColorScheme,
@@ -90,6 +90,13 @@ export default class MaterialYou {
         seedColor,
         generationStyle,
       }).current;
+
+      useEffect(() => {
+        if (colorScheme !== 'auto') return;
+        colorSchemeListener.current = Appearance.addChangeListener(({ colorScheme: scheme }) => {
+          setCurrentTheme(theme[scheme ?? 'light']);
+        });
+      }, []);
 
       // The listener if the color scheme is set to "auto".
       const colorSchemeListener = useRef<NativeEventSubscription>(null!);
