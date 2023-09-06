@@ -1,7 +1,7 @@
 {
   "name": "react-native-material-you-colors",
-  "version": "0.1.0-beta.3",
-  "description": "Get and generate Material You colors",
+  "version": "0.1.0-beta.4",
+  "description": "Access Material You color palettes on Android, iOS, and web platforms",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
