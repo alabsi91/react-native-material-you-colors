@@ -2,12 +2,13 @@ import React from 'react';
 import { Alert, Image, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import MaterialYou from 'react-native-material-you-colors';
 
-import AllColors from '../components/AllColors';
+import BrowseColors from '../components/BrowseColors';
 import Card from '../components/Card';
 import ColorPickerWidget from '../components/ColorPickerWidget';
 import PaletteButton from '../components/PaletteButton';
 import SearchBar from '../components/SearchBar';
 import { useMaterialYouTheme } from '../styles/Theme';
+import StyleButton from '../components/StyleButton';
 
 export default function Home() {
   const theme = useMaterialYouTheme();
@@ -114,77 +115,19 @@ export default function Home() {
 
             {/* View all the palette colors */}
             <Text style={[styles.title, { color: theme.text }]}>View all the palette colors</Text>
-            <AllColors />
+            <BrowseColors />
 
             {/* Palette generation style */}
             <Text style={[styles.title, { color: theme.text }]}>Palette generation style</Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
-              <Pressable
-                style={[styles.styleButton, { backgroundColor: theme.style === 'CONTENT' ? theme.card : theme.primary }]}
-                onPress={() => theme.setPaletteStyle('CONTENT')}
-              >
-                <Text style={[styles.styleButtonText, { color: theme.style === 'CONTENT' ? theme.text : theme.textColored }]}>
-                  CONTENT
-                </Text>
-              </Pressable>
-              <Pressable
-                style={[styles.styleButton, { backgroundColor: theme.style === 'EXPRESSIVE' ? theme.card : theme.primary }]}
-                onPress={() => theme.setPaletteStyle('EXPRESSIVE')}
-              >
-                <Text style={[styles.styleButtonText, { color: theme.style === 'EXPRESSIVE' ? theme.text : theme.textColored }]}>
-                  EXPRESSIVE
-                </Text>
-              </Pressable>
-              <Pressable
-                style={[styles.styleButton, { backgroundColor: theme.style === 'FRUIT_SALAD' ? theme.card : theme.primary }]}
-                onPress={() => theme.setPaletteStyle('FRUIT_SALAD')}
-              >
-                <Text style={[styles.styleButtonText, { color: theme.style === 'FRUIT_SALAD' ? theme.text : theme.textColored }]}>
-                  FRUIT SALAD
-                </Text>
-              </Pressable>
-              <Pressable
-                style={[styles.styleButton, { backgroundColor: theme.style === 'MONOCHROMATIC' ? theme.card : theme.primary }]}
-                onPress={() => theme.setPaletteStyle('MONOCHROMATIC')}
-              >
-                <Text
-                  style={[styles.styleButtonText, { color: theme.style === 'MONOCHROMATIC' ? theme.text : theme.textColored }]}
-                >
-                  MONOCHROMATIC
-                </Text>
-              </Pressable>
-              <Pressable
-                style={[styles.styleButton, { backgroundColor: theme.style === 'RAINBOW' ? theme.card : theme.primary }]}
-                onPress={() => theme.setPaletteStyle('RAINBOW')}
-              >
-                <Text style={[styles.styleButtonText, { color: theme.style === 'RAINBOW' ? theme.text : theme.textColored }]}>
-                  RAINBOW
-                </Text>
-              </Pressable>
-              <Pressable
-                style={[styles.styleButton, { backgroundColor: theme.style === 'SPRITZ' ? theme.card : theme.primary }]}
-                onPress={() => theme.setPaletteStyle('SPRITZ')}
-              >
-                <Text style={[styles.styleButtonText, { color: theme.style === 'SPRITZ' ? theme.text : theme.textColored }]}>
-                  SPRITZ
-                </Text>
-              </Pressable>
-              <Pressable
-                style={[styles.styleButton, { backgroundColor: theme.style === 'TONAL_SPOT' ? theme.card : theme.primary }]}
-                onPress={() => theme.setPaletteStyle('TONAL_SPOT')}
-              >
-                <Text style={[styles.styleButtonText, { color: theme.style === 'TONAL_SPOT' ? theme.text : theme.textColored }]}>
-                  TONAL SPOT
-                </Text>
-              </Pressable>
-              <Pressable
-                style={[styles.styleButton, { backgroundColor: theme.style === 'VIBRANT' ? theme.card : theme.primary }]}
-                onPress={() => theme.setPaletteStyle('VIBRANT')}
-              >
-                <Text style={[styles.styleButtonText, { color: theme.style === 'VIBRANT' ? theme.text : theme.textColored }]}>
-                  VIBRANT
-                </Text>
-              </Pressable>
+              <StyleButton styleName='CONTENT' />
+              <StyleButton styleName='EXPRESSIVE' />
+              <StyleButton styleName='FRUIT_SALAD' />
+              <StyleButton styleName='MONOCHROMATIC' />
+              <StyleButton styleName='RAINBOW' />
+              <StyleButton styleName='SPRITZ' />
+              <StyleButton styleName='TONAL_SPOT' />
+              <StyleButton styleName='VIBRANT' />
             </View>
           </ScrollView>
         </View>
@@ -245,27 +188,5 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
-  },
-  styleButton: {
-    borderRadius: 300,
-    paddingHorizontal: 20,
-    paddingVertical: 14,
-    borderWidth: 2,
-    borderColor: 'transparent',
-
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
-  },
-  styleButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
   },
 });
