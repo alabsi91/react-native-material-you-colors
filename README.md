@@ -2,6 +2,7 @@
 ![GitHub](https://img.shields.io/github/license/alabsi91/react-native-material-you-colors?style=for-the-badge)
 ![GitHub issues](https://img.shields.io/github/issues/alabsi91/react-native-material-you-colors?style=for-the-badge)
 ![Platform](https://img.shields.io/badge/Platform-IOS%20%7C%20Android%20%7C%20Expo%20%7C%20Web-informational?style=for-the-badge)
+![Arch](https://img.shields.io/badge/React%20Native-Paper%20%7C%20New%20Architecture-informational?style=for-the-badge)
 
 ![banner](https://lh3.googleusercontent.com/552oGSlinN0Gd7T8EjNkYGCBzHt0UmoG_pWtHSUY6FwaGT4q4-zJlGHD9rWO7MT5Oe_rtQZmyVnGRxVXch7Q1CTSQMs_1TcwbIMX9xZYDjEK2_R7PA=w1400-v0)
 
