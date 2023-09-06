@@ -31,9 +31,30 @@ export type MapPaletteToThemeType = (palette: MaterialYouPalette) => {
 };
 
 export type ThemeProviderProps = {
+  /**
+   * Specifies the initial color scheme for your app.
+   *
+   * `"auto" | "dark" | "light"`
+   */
   colorScheme?: ColorScheme;
+  /**
+   * This is used to generate a fallback palette in case the platform does not support Material You colors.
+   *
+   * **Note:** provide a color only in HEX format
+   */
   fallbackColor?: string;
+  /**
+   * If set to "auto", it tries to get the palette from the device,
+   * falling back to the provided color if unsupported.
+   * If set to a color (HEX only), it generates a new palette without device retrieval.
+   */
   seedColor?: 'auto' | (string & NonNullable<unknown>);
+  /**
+   * Palette generation style.
+   * The style that dictates how the palette will be generated.
+   *
+   * `"SPRITZ"| "TONAL_SPOT"| "VIBRANT"| "EXPRESSIVE"| "RAINBOW"| "FRUIT_SALAD"| "CONTENT"| "MONOCHROMATIC"`
+   */
   generationStyle?: GenerationStyle;
   children?: React.ReactNode;
 };
