@@ -91,15 +91,15 @@ export default class MaterialYou {
         generationStyle,
       }).current;
 
+      // The listener if the color scheme is set to "auto".
+      const colorSchemeListener = useRef<NativeEventSubscription>(null!);
+
       useEffect(() => {
         if (colorScheme !== 'auto') return;
         colorSchemeListener.current = Appearance.addChangeListener(({ colorScheme: scheme }) => {
           setCurrentTheme(theme[scheme ?? 'light']);
         });
       }, []);
-
-      // The listener if the color scheme is set to "auto".
-      const colorSchemeListener = useRef<NativeEventSubscription>(null!);
 
       const setColorScheme = (value: ColorScheme) => {
         themeSettings.colorScheme = value;
