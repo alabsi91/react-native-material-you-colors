@@ -69,16 +69,18 @@ export default class MaterialYou {
       children,
     }: ThemeProviderProps) => {
       // While it may not be ideal and may appear ugly,
-      // it is necessary to prevent calling `mapPaletteToTheme` on every `setState` operation.
-      const theme = useRef(
-        useMemo(() => {
-          return mapPaletteToTheme(
+      // it is necessary to prevent generating a new palette on every `setState` operation.
+      const palette = useRef(
+        useMemo(
+          () =>
             seedColor === 'auto'
               ? MaterialYou.getMaterialYouPalette(fallbackColor, generationStyle)
-              : MaterialYou.generatePaletteFromColor(seedColor, generationStyle)
-          );
-        }, [])
-      ).current;
+              : MaterialYou.generatePaletteFromColor(seedColor, generationStyle),
+          []
+        )
+      );
+
+      const theme = useRef(mapPaletteToTheme(palette.current)).current;
 
       const [currentTheme, setCurrentTheme] = useState<UserThemeType>(
         colorScheme === 'auto' ? theme[Appearance.getColorScheme() ?? 'light'] : theme[colorScheme]
@@ -128,7 +130,7 @@ export default class MaterialYou {
         seed: 'auto' | (string & NonNullable<unknown>),
         style: GenerationStyle = themeSettings.generationStyle
       ) => {
-        const generatedPalette =
+        palette.current =
           seed === 'auto'
             ? MaterialYou.getMaterialYouPalette(fallbackColor, style)
             : MaterialYou.generatePaletteFromColor(seed, style);
@@ -137,7 +139,7 @@ export default class MaterialYou {
         // If the seed is set to "auto", use the Android system's default 'TONAL_SPOT' style.
         themeSettings.generationStyle = seed === 'auto' ? 'TONAL_SPOT' : style;
 
-        const newTheme = mapPaletteToTheme(generatedPalette);
+        const newTheme = mapPaletteToTheme(palette.current);
         theme.light = newTheme.light;
         theme.dark = newTheme.dark;
 
@@ -150,7 +152,7 @@ export default class MaterialYou {
       };
 
       const setPaletteStyle = (style: GenerationStyle) => {
-        const generatedPalette = MaterialYou.generatePaletteFromColor(
+        palette.current = MaterialYou.generatePaletteFromColor(
           themeSettings.seedColor === 'auto' ? (seedColor !== 'auto' ? seedColor : fallbackColor) : themeSettings.seedColor,
           style
         );
@@ -159,7 +161,7 @@ export default class MaterialYou {
         // After changing the generation style, the palette is generated and no longer derived from the system.
         if (themeSettings.seedColor === 'auto') themeSettings.seedColor = seedColor !== 'auto' ? seedColor : fallbackColor;
 
-        const newTheme = mapPaletteToTheme(generatedPalette);
+        const newTheme = mapPaletteToTheme(palette.current);
         theme.light = newTheme.light;
         theme.dark = newTheme.dark;
 
@@ -175,7 +177,7 @@ export default class MaterialYou {
         <ThemeContext.Provider
           value={{
             ...currentTheme,
-            ...{ seedColor: themeSettings.seedColor, style: themeSettings.generationStyle },
+            ...{ seedColor: themeSettings.seedColor, style: themeSettings.generationStyle, palette: palette.current },
             setColorScheme,
             setMaterialYouColor,
             setPaletteStyle,

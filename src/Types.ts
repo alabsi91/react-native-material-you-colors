@@ -85,4 +85,6 @@ export type MaterialYouThemeContext = {
   seedColor: 'auto' | (string & NonNullable<unknown>);
   /** The current generation style used to generate the palette */
   style: GenerationStyle;
+  /** The current palette. */
+  palette: MaterialYouPalette;
 };

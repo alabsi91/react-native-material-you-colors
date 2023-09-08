@@ -6,9 +6,7 @@
 
 ![banner](https://lh3.googleusercontent.com/552oGSlinN0Gd7T8EjNkYGCBzHt0UmoG_pWtHSUY6FwaGT4q4-zJlGHD9rWO7MT5Oe_rtQZmyVnGRxVXch7Q1CTSQMs_1TcwbIMX9xZYDjEK2_R7PA=w1400-v0)
 
-
 https://github.com/alabsi91/react-native-material-you-colors/assets/58077449/5d70f2a6-ae2a-42c3-be02-0446e9f69f42
-
 
 # React Native Material You Colors
 
@@ -236,6 +234,13 @@ export default function MyComponent() {
   **Disclaimer**: If the current Material You palette is set to `"auto"` (following the system theme), a new palette will be generated using the `fallbackColor` prop.</br>
 
 - ### Other
+
+  ```ts
+  palette: MaterialYouPalette;
+  ```
+
+  **Description**</br>
+  The current color palette.</br>
 
   ```ts
   seedColor: 'auto' | string;
