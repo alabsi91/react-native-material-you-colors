@@ -1,8 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { FlatList, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import MaterialYou from 'react-native-material-you-colors';
-
 import type { MaterialYouPalette } from 'react-native-material-you-colors';
 import { useMaterialYouTheme } from '../styles/Theme';
 
@@ -21,10 +19,7 @@ export default function BrowseColors() {
   const [visible, setVisible] = useState(false);
 
   const DATA = useMemo(() => {
-    const palette =
-      theme.seedColor === 'auto'
-        ? MaterialYou.getMaterialYouPalette('#1b6ef3', theme.style)
-        : MaterialYou.generatePaletteFromColor(theme.seedColor, theme.style);
+    const palette = theme.palette;
 
     const listData = [];
 
