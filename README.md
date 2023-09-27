@@ -1,6 +1,6 @@
-![npm](https://img.shields.io/npm/v/react-native-material-you-colors?style=for-the-badge)
-![GitHub](https://img.shields.io/github/license/alabsi91/react-native-material-you-colors?style=for-the-badge)
-![GitHub issues](https://img.shields.io/github/issues/alabsi91/react-native-material-you-colors?style=for-the-badge)
+[![https://github.com/alabsi91/reanimated-color-picker](https://img.shields.io/npm/v/react-native-material-you-colors?style=for-the-badge)](https://www.npmjs.com/package/react-native-material-you-colors)
+[![GitHub](https://img.shields.io/github/license/alabsi91/react-native-material-you-colors?style=for-the-badge)](https://github.com/alabsi91/react-native-material-you-colors/blob/main/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/alabsi91/react-native-material-you-colors?style=for-the-badge)](https://github.com/alabsi91/react-native-material-you-colors/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
 ![Platform](https://img.shields.io/badge/Platform-IOS%20%7C%20Android%20%7C%20Expo%20%7C%20Web-informational?style=for-the-badge)
 ![Arch](https://img.shields.io/badge/React%20Native-Paper%20%7C%20New%20Architecture-informational?style=for-the-badge)
 
