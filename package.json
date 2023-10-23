@@ -42,7 +42,10 @@
     "colors",
     "android"
   ],
-  "repository": "https://github.com/alabsi91/react-native-material-you-colors",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alabsi91/react-native-material-you-colors.git"
+  },
   "author": "alabsi91 <alabsi91@gmail.com> (https://github.com/alabsi91)",
   "license": "MIT",
   "bugs": {
