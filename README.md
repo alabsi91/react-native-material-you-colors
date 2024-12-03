@@ -29,9 +29,9 @@ npm install react-native-material-you-colors
 > **Warning**
 > For `Expo` users, please note that the native side of this library will not function in `Expo Go` during app development. The native side is solely used to retrieve Material You colors from the `Android` system, but you can still generate palettes. The native side will work as expected after building the app in production mode.
 
-# Usage
+## Usage
 
-## Without using the Theme Provider
+### Without using the Theme Provider
 
 ```ts
 import MaterialYou from 'react-native-material-you-colors';
@@ -50,9 +50,9 @@ const palette = MaterialYou.getMaterialYouPalette();
  */
 ```
 
-### Methods
+**API**
 
-- #### isSupported
+- **isSupported**
 
   ```ts
   MaterialYou.isSupported : boolean
@@ -60,7 +60,7 @@ const palette = MaterialYou.getMaterialYouPalette();
 
   To verify the current platform/device support for Material You dynamic colors.
 
-- #### getMaterialYouPalette
+- **getMaterialYouPalette**
 
   ```ts
   MaterialYou.getMaterialYouPalette(fallbackSeedColor?: string, style?: GenerationStyle): MaterialYouPalette
@@ -70,7 +70,7 @@ const palette = MaterialYou.getMaterialYouPalette();
 
   If Material You is not supported on the user's device, a color palette generated from a fallback seed color will be returned.
 
-- #### generatePaletteFromColor
+- **generatePaletteFromColor**
 
   ```ts
   MaterialYou.generatePaletteFromColor(colorSeed: string, style?: GenerationStyle): MaterialYouPalette
@@ -82,7 +82,7 @@ const palette = MaterialYou.getMaterialYouPalette();
 
   **Note:** The input seed color should be in HEX format (#RRGGBB), without the alpha channel. For example, `#1b6ef3`.
 
-- #### The shape of the output palette data
+- **The shape of the output palette data**
 
   ```ts
   type MaterialYouPalette = {
@@ -94,7 +94,7 @@ const palette = MaterialYou.getMaterialYouPalette();
   };
   ```
 
-## Using the Theme Provider
+### Using the Theme Provider
 
 1. Create a new theme context and provide a function to determine which colors you want to use.
 
@@ -155,7 +155,7 @@ export default function App() {
 }
 ```
 
-### `ThemeProvider` props:
+**`ThemeProvider` props:**
 
 | Prop              | Type                                                                                                           | Description                                                                                                                                                                                            | Default        |
 | ----------------- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
@@ -187,9 +187,9 @@ export default function MyComponent() {
 
 </br>
 
-### `useMaterialYouTheme` provide other utilities you can use throw your app:
+**`useMaterialYouTheme` provide other utilities you can use throw your app:**
 
-- #### Changing Color Scheme
+- **Changing Color Scheme**
 
   ```ts
   setColorScheme: (value: "auto" | "dark" | "light") => void
@@ -198,7 +198,7 @@ export default function MyComponent() {
   **Description**</br>
   Switch between themes (`dark` or `light`) or set it to `auto` to follow system color scheme preference.
 
-- #### Generate new palette
+- **Generate new palette**
 
   ```ts
   setMaterialYouColor: (seedColor: "auto" | string), style?: GenerationStyle) => void
@@ -211,7 +211,7 @@ export default function MyComponent() {
   If a HEX color is provided, it will generate a new palette using that seed color.</br>
   `style:` - The style that dictates how the palette will be generated.
 
-- #### Change palette generation style
+- **Change palette generation style**
 
   ```ts
   setPaletteStyle: (style: generationStyle) => void;
@@ -223,7 +223,7 @@ export default function MyComponent() {
   Change the palette generation style and set it as the current theme.</br>
   **Disclaimer**: If the current Material You palette is set to `"auto"` (following the system theme), a new palette will be generated using the `fallbackColor` prop.</br>
 
-- ### Other
+- **Other**
 
   ```ts
   palette: MaterialYouPalette;
@@ -247,7 +247,7 @@ export default function MyComponent() {
   **Description**</br>
   Returns the current generation style used to generate the palette.
 
-# Examples
+## Examples
 
 Explore how to use React Native Material You Colors with these practical examples:
 
@@ -258,11 +258,11 @@ Explore how to use React Native Material You Colors with these practical example
 2. [Example: Expo Snack](https://snack.expo.dev/@alabsi91/react-native-material-you-colors)
    > **Warning** Please be aware that retrieving the Material You color palette from Android system on `Expo` only functions in the production build.
 
-# License
+## License
 
 React Native Material You Colors library is licensed under [**The MIT License.**](https://github.com/alabsi91/react-native-material-you-colors/blob/main/LICENSE)
 
-# Sponsoring
+## Sponsoring
 
 <a href="https://github.com/sponsors/alabsi91">
   <img align="right" width="160" alt="This library helped you? Consider sponsoring!" src=".github/funding-octocat.svg">
