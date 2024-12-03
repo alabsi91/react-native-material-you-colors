@@ -10,25 +10,17 @@ https://github.com/alabsi91/react-native-material-you-colors/assets/58077449/5d7
 
 # React Native Material You Colors
 
-React Native Material You Colors is a powerful library that simplifies the retrieval of Material You color palettes while ensuring compatibility across multiple platforms. With just a single seed color, you can generate palettes inspired by Material You's dynamic theming.
+React Native Material You Colors simplifies the retrieval of Material You color palettes while ensuring compatibility across multiple platforms. With just a single seed color, you can generate palettes inspired by Material You's dynamic theming.
 
 > Please check out my other library, [`Reanimated Color Picker`](https://github.com/alabsi91/reanimated-color-picker)
 
-# Key Features
+## Key Features
 
-### Multi-Platform Support
+1. Multi-Platform Support: Andorid, IOS and WEB
 
-This library seamlessly extends its support beyond `Android` to include `IOS` and `WEB` platforms. This cross-platform compatibility enables you to maintain consistent visuals and user experiences across various devices.
+2. Theme Management
 
-### Algorithm Conversion
-
-We've diligently converted Android's Material You color generation algorithm from Java to JavaScript, ensuring its accessibility across all platforms. This conversion guarantees that you can harness the same robust color palette generation capabilities, regardless of your target platform.
-
-### Theme Management
-
-React Native Material You Colors offers a comprehensive theme management solution to maintain a cohesive and user-friendly experience across your application.
-
-# Installation
+## Installation
 
 ```sh
 npm install react-native-material-you-colors
@@ -103,8 +95,6 @@ const palette = MaterialYou.getMaterialYouPalette();
   ```
 
 ## Using the Theme Provider
-
-We recommend using the Theme Provider for a straightforward and hassle-free way to manage your app's theme. This approach ensures a consistent and visually appealing experience for your users. To get started, follow these steps:
 
 1. Create a new theme context and provide a function to determine which colors you want to use.
 
