@@ -4,14 +4,16 @@
     "paths": {
       "react-native-material-you-colors": ["./src/index"]
     },
+    "types": ["react-native", "jest"],
+    "customConditions": ["react-native"],
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "lib": ["esnext"],
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noImplicitUseStrict": false,
@@ -23,5 +25,6 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext"
-  }
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".eslintrc.cjs"]
 }
