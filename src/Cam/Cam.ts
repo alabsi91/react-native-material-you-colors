@@ -17,8 +17,8 @@ import ColorUtils from '../Utils/ColorUtils';
 import HctSolver from './HctSolver';
 
 /**
- * A color appearance model, based on CAM16, extended to use L* as the lightness dimension, and
- * coupled to a gamut mapping algorithm. Creates a color system, enables a digital design system.
+ * A color appearance model, based on CAM16, extended to use L* as the lightness dimension, and coupled to a gamut mapping
+ * algorithm. Creates a color system, enables a digital design system.
  */
 export class Cam {
   // When the delta between the floor & ceiling of a binary search for chroma is less than this,
@@ -37,19 +37,16 @@ export class Cam {
 
   /** The maximum difference between the requested L* and the L* returned. */
   DL_MAX = 0.2;
-  /**
-   *  When the delta between the floor & ceiling of a binary search for chroma is less than this,
-   * the binary search terminates.
-   */
+  /** When the delta between the floor & ceiling of a binary search for chroma is less than this, the binary search terminates. */
   CHROMA_SEARCH_ENDPOINT = 0.4;
   /**
-   * When the delta between the floor & ceiling of a binary search for J, lightness in CAM16,
-   * is less than this, the binary search terminates.
+   * When the delta between the floor & ceiling of a binary search for J, lightness in CAM16, is less than this, the binary search
+   * terminates.
    */
   LIGHTNESS_SEARCH_ENDPOINT = 0.01;
   /**
-   * sRGB specification has D65 whitepoint - Stokes, Anderson, Chandrasekar, Motta - A Standard
-   * Default Color Space for the Internet: sRGB, 1996
+   * SRGB specification has D65 whitepoint - Stokes, Anderson, Chandrasekar, Motta - A Standard Default Color Space for the
+   * Internet: sRGB, 1996
    */
   WHITE_POINT_D65: [number, number, number] = [95.047, 100, 108.883];
 
@@ -75,7 +72,7 @@ export class Cam {
     s: number,
     jstar: number,
     astar: number,
-    bstar: number
+    bstar: number,
   ) {
     this.mHue = hue;
     this.mChroma = chroma;
@@ -103,7 +100,7 @@ export class Cam {
     return this.mJ;
   }
 
-  /** a* coordinate in CAM16-UCS */
+  /** A* coordinate in CAM16-UCS */
   getAstar() {
     return this.mAstar;
   }
@@ -113,23 +110,20 @@ export class Cam {
     return this.mJstar;
   }
 
-  /** b* coordinate in CAM16-UCS */
+  /** B* coordinate in CAM16-UCS */
   getBstar() {
     return this.mBstar;
   }
 
   /**
-   * Create a CAM from lightness, chroma, and hue coordinates. It is assumed those coordinates
-   * were measured in the sRGB standard frame.
+   * Create a CAM from lightness, chroma, and hue coordinates. It is assumed those coordinates were measured in the sRGB standard
+   * frame.
    */
   static fromJch(j: number, c: number, h: number) {
     return Cam.fromJchInFrame(j, c, h);
   }
 
-  /**
-   * Create a CAM from lightness, chroma, and hue coordinates, and also specify the frame in which
-   * the color is being viewed.
-   */
+  /** Create a CAM from lightness, chroma, and hue coordinates, and also specify the frame in which the color is being viewed. */
   static fromJchInFrame(j: number, c: number, h: number) {
     const q = (4 / Frame.DEFAULT.getC()) * Math.sqrt(j / 100) * (Frame.DEFAULT.getAw() + 4) * Frame.DEFAULT.getFlRoot();
     const m = c * Frame.DEFAULT.getFlRoot();
@@ -192,8 +186,8 @@ export class Cam {
   /**
    * Distance in CAM16-UCS space between two colors.
    *
-   * Much like L*a*b* was designed to measure distance between colors, the CAM16 standard
-   * defined a color space called CAM16-UCS to measure distance between CAM16 colors.
+   * Much like L_a_b* was designed to measure distance between colors, the CAM16 standard defined a color space called CAM16-UCS
+   * to measure distance between CAM16 colors.
    */
   distance(other: Cam) {
     const dJ = this.getJstar() - other.getJstar(),
@@ -205,8 +199,8 @@ export class Cam {
   }
 
   /**
-   * Find J, lightness in CAM16 color space, that creates a color with L* = `lstar` in the L*a*b* color space.
-   * Returns null if no J could be found that generated a color with L* `lstar`.
+   * Find J, lightness in CAM16 color space, that creates a color with L* = `lstar` in the L_a_b* color space. Returns null if no
+   * J could be found that generated a color with L* `lstar`.
    */
   static findCamByJ(hue: number, chroma: number, lstar: number) {
     let low = 0,
@@ -265,22 +259,19 @@ export class Cam {
   }
 
   /**
-   * Given a hue & chroma in CAM16, L* in L*a*b*, return an ARGB integer. The chroma of the color
-   * returned may, and frequently will, be lower than requested. Assumes the color is viewed in
-   * the frame defined by the sRGB standard.
+   * Given a hue & chroma in CAM16, L* in L_a_b*, return an ARGB integer. The chroma of the color returned may, and frequently
+   * will, be lower than requested. Assumes the color is viewed in the frame defined by the sRGB standard.
    */
   static getInt(hue: number, chroma: number, lstar: number) {
     return Cam.getInt_(hue, chroma, lstar, Frame.DEFAULT);
   }
 
   /**
-   * Given a hue & chroma in CAM16, L* in L*a*b*, and the frame in which the color will be viewed,
-   * return an ARGB integer.
+   * Given a hue & chroma in CAM16, L* in L_a_b*, and the frame in which the color will be viewed, return an ARGB integer.
    *
-   * The chroma of the color returned may, and frequently will, be lower than requested.
-   * This is a fundamental property of color that cannot be worked around by engineering.
-   * For example, a red hue, with high chroma, and high L* does not exist: red hues have a maximum chroma below 10
-   * in light shades, creating pink.
+   * The chroma of the color returned may, and frequently will, be lower than requested. This is a fundamental property of color
+   * that cannot be worked around by engineering. For example, a red hue, with high chroma, and high L* does not exist: red hues
+   * have a maximum chroma below 10 in light shades, creating pink.
    */
   static getInt_(hue: number, chroma: number, lstar: number, frame: Frame) {
     // This is a crucial routine for building a color system, CAM16 itself is not sufficient.
@@ -418,7 +409,7 @@ export class Cam {
     return ColorUtils.XYZToColor(
       xT * CamUtils.WHITE_POINT_D65[0],
       yT * CamUtils.WHITE_POINT_D65[1],
-      zT * CamUtils.WHITE_POINT_D65[2]
+      zT * CamUtils.WHITE_POINT_D65[2],
     );
   }
 
@@ -489,8 +480,8 @@ export class Cam {
   }
 
   /**
-   * Create a color appearance model from a ARGB integer representing a color. It is assumed the
-   * color was viewed in the frame defined in the sRGB standard.
+   * Create a color appearance model from a ARGB integer representing a color. It is assumed the color was viewed in the frame
+   * defined in the sRGB standard.
    */
   static fromInt(argb: number) {
     return Cam.fromIntInFrame(argb, Frame.DEFAULT);
@@ -502,30 +493,26 @@ export class Cam {
  *
  * Methods are named $xFrom$Y. For example, lstarFromInt() returns L* from an ARGB integer.
  *
- * These methods, generally, convert colors between the L*a*b*, XYZ, and sRGB spaces.
+ * These methods, generally, convert colors between the L_a_b*, XYZ, and sRGB spaces.
  *
- * L*a*b* is a perceptually accurate color space. This is particularly important in the L*
- * dimension: it measures luminance and unlike lightness measures traditionally used in UI work via
- * RGB or HSL, this luminance transitions smoothly, permitting creation of pleasing shades of a
- * color, and more pleasing transitions between colors.
+ * L_a_b* is a perceptually accurate color space. This is particularly important in the L* dimension: it measures luminance and
+ * unlike lightness measures traditionally used in UI work via RGB or HSL, this luminance transitions smoothly, permitting
+ * creation of pleasing shades of a color, and more pleasing transitions between colors.
  *
- * XYZ is commonly used as an intermediate color space for converting between one color space to
- * another. For example, to convert RGB to L*a*b*, first RGB is converted to XYZ, then XYZ is
- * converted to L*a*b*.
+ * XYZ is commonly used as an intermediate color space for converting between one color space to another. For example, to convert
+ * RGB to L_a_b*, first RGB is converted to XYZ, then XYZ is converted to L_a_b*.
  *
- * sRGB is a "specification originated from work in 1990s through cooperation by Hewlett-Packard
- * and Microsoft, and it was designed to be a standard definition of RGB for the internet, which it
- * indeed became...The standard is based on a sampling of computer monitors at the time...The whole
- * idea of sRGB is that if everyone assumed that RGB meant the same thing, then the results would be
- * consistent, and reasonably good. It worked." - Fairchild, Color Models and Systems: Handbook of
- * Color Psychology, 2015
+ * SRGB is a "specification originated from work in 1990s through cooperation by Hewlett-Packard and Microsoft, and it was
+ * designed to be a standard definition of RGB for the internet, which it indeed became...The standard is based on a sampling of
+ * computer monitors at the time...The whole idea of sRGB is that if everyone assumed that RGB meant the same thing, then the
+ * results would be consistent, and reasonably good. It worked." - Fairchild, Color Models and Systems: Handbook of Color
+ * Psychology, 2015
  */
 export class CamUtils {
   /**
-   * This is a more precise sRGB to XYZ transformation matrix than traditionally
-   * used. It was derived using Schlomer's technique of transforming the xyY
-   * primaries to XYZ, then applying a correction to ensure mapping from sRGB
-   * 1, 1, 1 to the reference white point, D65.
+   * This is a more precise sRGB to XYZ transformation matrix than traditionally used. It was derived using Schlomer's technique
+   * of transforming the xyY primaries to XYZ, then applying a correction to ensure mapping from sRGB 1, 1, 1 to the reference
+   * white point, D65.
    */
   static SRGB_TO_XYZ: [[number, number, number], [number, number, number], [number, number, number]] = [
     [0.41233895, 0.35762064, 0.18051042],
@@ -533,7 +520,7 @@ export class CamUtils {
     [0.01932141, 0.11916382, 0.95034478],
   ];
 
-  /**  Transforms XYZ color space coordinates to 'cone'/'RGB' responses in CAM16.*/
+  /** Transforms XYZ color space coordinates to 'cone'/'RGB' responses in CAM16. */
   static XYZ_TO_CAM16RGB: [[number, number, number], [number, number, number], [number, number, number]] = [
     [0.401288, 0.650173, -0.051461],
     [-0.250268, 1.204414, 0.045854],
@@ -554,12 +541,12 @@ export class CamUtils {
   ];
 
   /**
-   * sRGB specification has D65 whitepoint - Stokes, Anderson, Chandrasekar, Motta - A Standard
-   * Default Color Space for the Internet: sRGB, 1996
+   * SRGB specification has D65 whitepoint - Stokes, Anderson, Chandrasekar, Motta - A Standard Default Color Space for the
+   * Internet: sRGB, 1996
    */
   static WHITE_POINT_D65: [number, number, number] = [95.047, 100, 108.883];
 
-  /** Returns L* from L*a*b*, perceptual luminance, from an ARGB integer (ColorInt). */
+  /** Returns L* from L_a_b*, perceptual luminance, from an ARGB integer (ColorInt). */
   static lstarFromInt(argb: number) {
     return CamUtils.lstarFromY(CamUtils.yFromInt(argb));
   }
@@ -611,13 +598,12 @@ export class CamUtils {
   /**
    * Converts an L* value to a Y value.
    *
-   * L* in L*a*b* and Y in XYZ measure the same quantity, luminance.
+   * L* in L_a_b* and Y in XYZ measure the same quantity, luminance.
    *
-   * L* measures perceptual luminance, a linear scale. Y in XYZ measures relative luminance, a
-   * logarithmic scale.
+   * L* measures perceptual luminance, a linear scale. Y in XYZ measures relative luminance, a logarithmic scale.
    *
-   * @param lstar L* in L*a*b*
-   * @return Y in XYZ
+   * @param lstar L* in L_a_b*
+   * @returns Y in XYZ
    */
   static yFromLstar(lstar: number) {
     const ke = 8;
@@ -631,7 +617,7 @@ export class CamUtils {
   /**
    * Clamps an integer between two integers.
    *
-   * @return input when min <= input <= max, and either min or max otherwise.
+   * @returns Input when min <= input <= max, and either min or max otherwise.
    */
   static clampInt(min: number, max: number, input: number) {
     if (input < min) {
@@ -647,7 +633,7 @@ export class CamUtils {
    * Delinearizes an RGB component.
    *
    * @param rgbComponent 0 <= rgb_component <= 100, represents linear R/G/B channel
-   * @return 0 <= output <= 255, color channel converted to regular RGB space
+   * @returns 0 <= output <= 255, color channel converted to regular RGB space
    */
   static delinearized(rgbComponent: number) {
     const normalized = rgbComponent / 100;
@@ -681,14 +667,13 @@ export class CamUtils {
   /**
    * Convert a color appearance model representation to an ARGB color.
    *
-   * Note: the returned color may have a lower chroma than requested. Whether a chroma is
-   * available depends on luminance. For example, there's no such thing as a high chroma light
-   * red, due to the limitations of our eyes and/or physics. If the requested chroma is
-   * unavailable, the highest possible chroma at the requested luminance is returned.
+   * Note: the returned color may have a lower chroma than requested. Whether a chroma is available depends on luminance. For
+   * example, there's no such thing as a high chroma light red, due to the limitations of our eyes and/or physics. If the
+   * requested chroma is unavailable, the highest possible chroma at the requested luminance is returned.
    *
-   * @param hue    hue, in degrees, in CAM coordinates
-   * @param chroma chroma in CAM coordinates.
-   * @param lstar  perceptual luminance, L* in L*a*b*
+   * @param hue Hue, in degrees, in CAM coordinates
+   * @param chroma Chroma in CAM coordinates.
+   * @param lstar Perceptual luminance, L* in L_a_b*
    */
   static CAMToColor(hue: number, chroma: number, lstar: number) {
     return Cam.getInt(hue, chroma, lstar);
@@ -697,8 +682,8 @@ export class CamUtils {
   /**
    * Converts an L* value to an ARGB representation.
    *
-   * @param lstar L* in L*a*b*
-   * @return ARGB representation of grayscale color with lightness matching L*
+   * @param lstar L* in L_a_b*
+   * @returns ARGB representation of grayscale color with lightness matching L*
    */
   static argbFromLstar(lstar: number) {
     const fy = (lstar + 16) / 116,
@@ -724,7 +709,7 @@ export class CamUtils {
   /**
    * The signum function.
    *
-   * @return 1 if num > 0, -1 if num < 0, and 0 if num = 0
+   * @returns 1 if num > 0, -1 if num < 0, and 0 if num = 0
    */
   static signum(num: number) {
     if (num < 0) {
@@ -761,22 +746,21 @@ export class CamUtils {
     return ColorUtils.XYZToColor(
       xT * CamUtils.WHITE_POINT_D65[0],
       yT * CamUtils.WHITE_POINT_D65[1],
-      zT * CamUtils.WHITE_POINT_D65[2]
+      zT * CamUtils.WHITE_POINT_D65[2],
     );
   }
 }
 
 /**
- * The frame, or viewing conditions, where a color was seen. Used, along with a color, to create a
- * color appearance model representing the color.
+ * The frame, or viewing conditions, where a color was seen. Used, along with a color, to create a color appearance model
+ * representing the color.
  *
- * To convert a traditional color to a color appearance model, it requires knowing what
- * conditions the color was observed in. Our perception of color depends on, for example, the tone
- * of the light illuminating the color, how bright that light was, etc.
+ * To convert a traditional color to a color appearance model, it requires knowing what conditions the color was observed in. Our
+ * perception of color depends on, for example, the tone of the light illuminating the color, how bright that light was, etc.
  *
- * This class is modelled separately from the color appearance model itself because there are a
- * number of calculations during the color => CAM conversion process that depend only on the viewing
- * conditions. Caching those calculations in a Frame instance saves a significant amount of time.
+ * This class is modelled separately from the color appearance model itself because there are a number of calculations during the
+ * color => CAM conversion process that depend only on the viewing conditions. Caching those calculations in a Frame instance
+ * saves a significant amount of time.
  */
 export class Frame {
   mN: number;
@@ -800,7 +784,7 @@ export class Frame {
     rgbD: [number, number, number],
     fl: number,
     fLRoot: number,
-    z: number
+    z: number,
   ) {
     this.mN = n;
     this.mAw = aw;
@@ -815,7 +799,7 @@ export class Frame {
   }
 
   getRgbD() {
-    return this.mRgbD as [number, number, number];
+    return this.mRgbD;
   }
   getFl() {
     return this.mFl;
@@ -850,7 +834,7 @@ export class Frame {
     adaptingLuminance: number,
     backgroundLstar: number,
     surround: number,
-    discountingIlluminant: boolean
+    discountingIlluminant: boolean,
   ) {
     // Transform white point XYZ to 'cone'/'rgb' responses
     const matrix = CamUtils.XYZ_TO_CAM16RGB,

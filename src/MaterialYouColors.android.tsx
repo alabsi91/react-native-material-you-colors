@@ -1,14 +1,14 @@
 import { NativeModules, Platform } from 'react-native';
+import type { MaterialYouPalette } from './Types.ts';
 
-import type { MaterialYouPalette } from './Types';
+interface MaterialYouSpec {
+  getColors: () => MaterialYouPalette;
+}
 
-// @ts-expect-error any
-const isTurboModuleEnabled = global.__turboModuleProxy != null;
+const isTurboModuleEnabled = (globalThis as typeof globalThis & { __turboModuleProxy?: unknown }).__turboModuleProxy != null;
 
-const MaterialYouColorsModule = isTurboModuleEnabled
-  ? // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('./NativeMaterialYouColors').default
-  : NativeModules?.MaterialYouColors;
+const MaterialYouColorsModule = // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  (isTurboModuleEnabled ? require('./NativeMaterialYouColors').default : NativeModules?.MaterialYouColors) as MaterialYouSpec;
 
 const MaterialYouColors = MaterialYouColorsModule || null;
 

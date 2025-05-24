@@ -20,9 +20,7 @@ export default function Home() {
     }
 
     if (Platform.OS === 'web') {
-      // @ts-expect-error not found
-      // eslint-disable-next-line no-alert
-      alert('"Material You" is not supported on this platform.');
+      Alert.alert('"Material You" is not supported on this platform.');
       return;
     }
 

@@ -32,10 +32,10 @@ export default class HctSolver {
     [0.00010146692491640572, 0.0005364214359186694, 0.0032979401770712076],
   ];
 
-  /**  Lookup table for plane in XYZ's Y axis (relative luminance) that corresponds to a given
-   * L* in L*a*b*. HCT's T is L*, and XYZ's Y is directly correlated to linear RGB, this table
-   * allows us to thus find the intersection between HCT and RGB, giving a solution to the
-   * RGB coordinates that correspond to a given set of HCT coordinates.
+  /**
+   * Lookup table for plane in XYZ's Y axis (relative luminance) that corresponds to a given L* in L_a_b*. HCT's T is L*, and
+   * XYZ's Y is directly correlated to linear RGB, this table allows us to thus find the intersection between HCT and RGB, giving
+   * a solution to the RGB coordinates that correspond to a given set of HCT coordinates.
    */
   static CRITICAL_PLANES = [
     0.015176349177441876, 0.045529047532325624, 0.07588174588720938, 0.10623444424209313, 0.13658714259697685,
@@ -86,7 +86,7 @@ export default class HctSolver {
   /**
    * Sanitizes a degree measure as a floating-point number.
    *
-   * @return a degree measure between 0.0 (inclusive) and 360.0 (exclusive).
+   * @returns A degree measure between 0.0 (inclusive) and 360.0 (exclusive).
    */
   static sanitizeDegreesDouble(degrees: number) {
     degrees = degrees % 360.0;
@@ -110,7 +110,7 @@ export default class HctSolver {
    * @param hueRadians The desired hue in radians.
    * @param chroma The desired chroma.
    * @param y The desired Y.
-   * @return The desired color as a hexadecimal integer, if found; 0 otherwise.
+   * @returns The desired color as a hexadecimal integer, if found; 0 otherwise.
    */
   static findResultByJ(hueRadians: number, chroma: number, y: number) {
     // Initial estimate of j.
@@ -186,9 +186,8 @@ export default class HctSolver {
    * @param hueDegrees The desired hue, in degrees.
    * @param chroma The desired chroma.
    * @param lstar The desired L*.
-   * @return A hexadecimal representing the sRGB color. The color has sufficiently close hue,
-   * chroma, and L* to the desired values, if possible; otherwise, the hue and L* will be
-   * sufficiently close, and chroma will be maximized.
+   * @returns A hexadecimal representing the sRGB color. The color has sufficiently close hue, chroma, and L* to the desired
+   *   values, if possible; otherwise, the hue and L* will be sufficiently close, and chroma will be maximized.
    */
   static solveToInt(hueDegrees: number, chroma: number, lstar: number) {
     if (chroma < 0.0001 || lstar < 0.0001 || lstar > 99.9999) {
@@ -218,9 +217,8 @@ export default class HctSolver {
    *
    * @param y The Y value of the plane.
    * @param n The zero-based index of the point. 0 <= n <= 11.
-   * @return The nth possible vertex of the polygonal intersection of the y plane and the RGB cube
-   * in linear RGB coordinates, if it exists. If the possible vertex lies outside of the cube,
-   * [-1.0, -1.0, -1.0] is returned.
+   * @returns The nth possible vertex of the polygonal intersection of the y plane and the RGB cube in linear RGB coordinates, if
+   *   it exists. If the possible vertex lies outside of the cube, [-1.0, -1.0, -1.0] is returned.
    */
   static nthVertex(y: number, n: number): [number, number, number] {
     const kR = HctSolver.Y_FROM_LINRGB[0],
@@ -268,7 +266,7 @@ export default class HctSolver {
    * Returns the hue of a linear RGB color in CAM16.
    *
    * @param linrgb The linear RGB coordinates of a color.
-   * @return The hue of the color in CAM16, in radians.
+   * @returns The hue of the color in CAM16, in radians.
    */
   static hueOf(linrgb: [number, number, number]) {
     // Calculate scaled discount components using in-lined matrix multiplication to avoid
@@ -296,21 +294,21 @@ export default class HctSolver {
    * Sanitizes a small enough angle in radians.
    *
    * @param angle An angle in radians; must not deviate too much from 0.
-   * @return A coterminal angle between 0 and 2pi.
+   * @returns A coterminal angle between 0 and 2pi.
    */
   static sanitizeRadians(angle: number) {
     return (angle + Math.PI * 8) % (Math.PI * 2);
   }
 
   /**
-   * Cyclic order is the idea that 330° → 5° → 200° is in order, but, 180° → 270° → 210° is not.
-   * Visually, A B and C are angles, and they are in cyclic order if travelling from A to C
-   * in a way that increases angle (ex. counter-clockwise if +x axis = 0 degrees and +y = 90)
-   * means you must cross B.
-   * @param a first angle in possibly cyclic triplet
-   * @param b second angle in possibly cyclic triplet
-   * @param c third angle in possibly cyclic triplet
-   * @return true if B is between A and C
+   * Cyclic order is the idea that 330° → 5° → 200° is in order, but, 180° → 270° → 210° is not. Visually, A B and C are angles,
+   * and they are in cyclic order if travelling from A to C in a way that increases angle (ex. counter-clockwise if +x axis = 0
+   * degrees and +y = 90) means you must cross B.
+   *
+   * @param a First angle in possibly cyclic triplet
+   * @param b Second angle in possibly cyclic triplet
+   * @param c Third angle in possibly cyclic triplet
+   * @returns True if B is between A and C
    */
   static areInCyclicOrder(a: number, b: number, c: number) {
     const deltaAB = HctSolver.sanitizeRadians(b - a);
@@ -324,8 +322,8 @@ export default class HctSolver {
    *
    * @param y The Y value of the color.
    * @param targetHue The hue of the color.
-   * @return A list of two sets of linear RGB coordinates, each corresponding to an endpoint of
-   * the segment containing the desired color.
+   * @returns A list of two sets of linear RGB coordinates, each corresponding to an endpoint of the segment containing the
+   *   desired color.
    */
   static bisectToSegment(y: number, targetHue: number) {
     let left: [number, number, number] = [-1.0, -1.0, -1.0],
@@ -378,7 +376,7 @@ export default class HctSolver {
    * Delinearizes an RGB component, returning a floating-point number.
    *
    * @param rgbComponent 0.0 <= rgb_component <= 100.0, represents linear R/G/B channel
-   * @return 0.0 <= output <= 255.0, color channel converted to regular RGB space
+   * @returns 0.0 <= output <= 255.0, color channel converted to regular RGB space
    */
   static trueDelinearized(rgbComponent: number) {
     const normalized = rgbComponent / 100.0;
@@ -399,7 +397,7 @@ export default class HctSolver {
    * @param source The starting number.
    * @param mid The number in the middle.
    * @param target The ending number.
-   * @return A number t such that lerp(source, target, t) = mid.
+   * @returns A number t such that lerp(source, target, t) = mid.
    */
   static intercept(source: number, mid: number, target: number) {
     if (target === source) return target;
@@ -410,10 +408,10 @@ export default class HctSolver {
   /**
    * Linearly interpolate between two points in three dimensions.
    *
-   * @param source three dimensions representing the starting point
-   * @param t the percentage to travel between source and target, from 0 to 1
-   * @param target three dimensions representing the end point
-   * @return three dimensions representing the point t percent from source to target.
+   * @param source Three dimensions representing the starting point
+   * @param t The percentage to travel between source and target, from 0 to 1
+   * @param target Three dimensions representing the end point
+   * @returns Three dimensions representing the point t percent from source to target.
    */
   static lerpPoint(source: [number, number, number], t: number, target: [number, number, number]) {
     return [
@@ -430,8 +428,7 @@ export default class HctSolver {
    * @param coordinate The R-, G-, or B-coordinate of the plane.
    * @param target The coordinates of point B.
    * @param axis The axis the plane is perpendicular with. (0: R, 1: G, 2: B)
-   * @return The intersection point of the segment AB with the plane R=coordinate, G=coordinate,
-   *     or B=coordinate
+   * @returns The intersection point of the segment AB with the plane R=coordinate, G=coordinate, or B=coordinate
    */
   static setCoordinate(source: [number, number, number], coordinate: number, target: [number, number, number], axis: 0 | 1 | 2) {
     const t = HctSolver.intercept(source[axis], coordinate, target[axis]);
@@ -444,7 +441,7 @@ export default class HctSolver {
    *
    * @param y The Y value of the color.
    * @param targetHue The hue of the color.
-   * @return The desired color, in linear RGB coordinates.
+   * @returns The desired color, in linear RGB coordinates.
    */
   static bisectToLimit(y: number, targetHue: number) {
     const segment = HctSolver.bisectToSegment(y, targetHue);

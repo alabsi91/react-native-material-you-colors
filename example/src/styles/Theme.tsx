@@ -4,9 +4,10 @@ import type { MaterialYouPalette } from 'react-native-material-you-colors';
 
 /**
  * The function generates a light theme and a dark theme using a given MaterialYouPalette.
- * @param {MaterialYouPalette} palette - The `palette` parameter is of type `MaterialYouPalette`. It is
- * an object that contains various color shades used in the Material You color system.
- * @returns an object that contains two properties: `light` and `dark`.
+ *
+ * @param {MaterialYouPalette} palette - The `palette` parameter is of type `MaterialYouPalette`. It is an object that contains
+ *   various color shades used in the Material You color system.
+ * @returns An object that contains two properties: `light` and `dark`.
  */
 function generateTheme(palette: MaterialYouPalette) {
   const light = {

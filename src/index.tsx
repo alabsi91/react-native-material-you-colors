@@ -14,7 +14,7 @@ import Palette from './Monet/Palette';
 
 import type { NativeEventSubscription } from 'react-native';
 
-export * from './Types';
+export type * from './Types';
 
 export default class MaterialYou {
   static isSupported = isMaterialYouSupported;
@@ -26,7 +26,7 @@ export default class MaterialYou {
    *
    * **Note:** The input seed color should be in HEX format, #RRGGBB, without the alpha channel, for example, `#1b6ef3`.
    */
-  static generatePaletteFromColor: (colorSeed: string, style?: GenerationStyle) => MaterialYouPalette = Palette.generate;
+  static generatePaletteFromColor = (colorSeed: string, style?: GenerationStyle) => Palette.generate(colorSeed, style);
 
   static createThemeContext<T extends MapPaletteToThemeType>(mapPaletteToTheme: T) {
     // This is solely for testing the `mapPaletteToTheme` callback function before initialization.
@@ -39,18 +39,20 @@ export default class MaterialYou {
     });
 
     if (!('light' in tmp) || !('dark' in tmp)) {
-      throw "[createThemeContext] The `mapPaletteToTheme` function should return an object with the 'light' and 'dark' keys.";
+      throw new Error(
+        "[createThemeContext] The `mapPaletteToTheme` function should return an object with the 'light' and 'dark' keys.",
+      );
     }
 
     if (typeof tmp.dark !== 'object' || typeof tmp.light !== 'object') {
-      throw "[createThemeContext] the 'light' and 'dark' properties should hold an object as their values.";
+      throw new Error("[createThemeContext] the 'light' and 'dark' properties should hold an object as their values.");
     }
 
     if (
       !Object.keys(tmp.dark).every(e => Object.keys(tmp.light).includes(e)) ||
       !Object.keys(tmp.light).every(e => Object.keys(tmp.dark).includes(e))
     ) {
-      throw "[createThemeContext] the 'light' and 'dark' Objects do not have the same keys.";
+      throw new Error("[createThemeContext] the 'light' and 'dark' Objects do not have the same keys.");
     }
 
     // empty the variable
@@ -76,14 +78,14 @@ export default class MaterialYou {
             seedColor === 'auto'
               ? MaterialYou.getMaterialYouPalette(fallbackColor, generationStyle)
               : MaterialYou.generatePaletteFromColor(seedColor, generationStyle),
-          []
-        )
+          [],
+        ),
       );
 
       const theme = useRef(mapPaletteToTheme(palette.current)).current;
 
       const [currentTheme, setCurrentTheme] = useState<UserThemeType>(
-        colorScheme === 'auto' ? theme[Appearance.getColorScheme() ?? 'light'] : theme[colorScheme]
+        colorScheme === 'auto' ? theme[Appearance.getColorScheme() ?? 'light'] : theme[colorScheme],
       );
 
       // to keep track
@@ -128,7 +130,7 @@ export default class MaterialYou {
 
       const setMaterialYouColor = (
         seed: 'auto' | (string & NonNullable<unknown>),
-        style: GenerationStyle = themeSettings.generationStyle
+        style: GenerationStyle = themeSettings.generationStyle,
       ) => {
         palette.current =
           seed === 'auto'
@@ -154,7 +156,7 @@ export default class MaterialYou {
       const setPaletteStyle = (style: GenerationStyle) => {
         palette.current = MaterialYou.generatePaletteFromColor(
           themeSettings.seedColor === 'auto' ? (seedColor !== 'auto' ? seedColor : fallbackColor) : themeSettings.seedColor,
-          style
+          style,
         );
 
         themeSettings.generationStyle = style;
@@ -202,15 +204,17 @@ export default class MaterialYou {
    *
    * If Material You is not supported on the user's device, a color palette generated from a seed color will be returned.
    *
-   * @param {string} [fallbackSeedColor='#1b6ef3'] - The seed color in HEX format, #RRGGBB, without the alpha channel (e.g., `#1b6ef3`).
-   * @param {GenerationStyle} [style='TONAL_SPOT'] - Various styles are available to choose from, each of which dictates how the palette will be generated.
+   * @param {string} [fallbackSeedColor='#1b6ef3'] - The seed color in HEX format, #RRGGBB, without the alpha channel (e.g.,
+   *   `#1b6ef3`). Default is `'#1b6ef3'`
+   * @param {GenerationStyle} [style='TONAL_SPOT'] - Various styles are available to choose from, each of which dictates how the
+   *   palette will be generated. Default is `'TONAL_SPOT'`
    */
   static getMaterialYouPalette(fallbackSeedColor = '#1b6ef3', style: GenerationStyle = 'TONAL_SPOT'): MaterialYouPalette {
     if (MaterialYou.isSupported && getPalletteFromAndroid) return getPalletteFromAndroid?.();
 
     if (__DEV__)
       console.log(
-        `"Material You" is not supported on this device, A fallback palette has been generated using the seed color "${fallbackSeedColor}" .`
+        `"Material You" is not supported on this device, A fallback palette has been generated using the seed color "${fallbackSeedColor}" .`,
       );
 
     return MaterialYou.generatePaletteFromColor(fallbackSeedColor, style);

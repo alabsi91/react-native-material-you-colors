@@ -15,5 +15,3 @@ export default class Color {
     return 0xff000000 | (red << 16) | (green << 8) | blue;
   }
 }
-
-Color;
